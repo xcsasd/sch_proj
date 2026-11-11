@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Решись Авиа — Панель Прогнозирования</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <button id="btn-logout" style="background-color: transparent; color: #ff4d4f; border: 1px solid #ff4d4f; margin-bottom: 20px; padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: 0.2s;">Выйти</button>
+    <button id="btn-coffee" style="background-color: transparent; color: brown; border: 1px solid #b97a21e1; margin-bottom: 20px; padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: 0.2s;">Сделать кофе</button>
+
+    <div class="container">
+        <h2>✈️ Решись Авиа</h2>
+
+        <form id="forecast-form">
+            <div class="form-group">
+                <label for="route-select">Маршрут рейса</label>
+                <select id="route-select" required>
+                    <option value="" disabled selected>Выберите направление...</option>
+                    <option value="MOW-AER">Москва ⇄ Сочи</option>
+                    <option value="MOW-LED">Москва ⇄ Санкт-Петербург</option>
+                    <option value="MOW-KGD">Москва ⇄ Калининград</option>
+                    <option value="MOW-OVB">Москва ⇄ Новосибирск</option>
+                    <option value="MOW-MRV">Москва ⇄ Минеральные Воды</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="date-input">Дата вылета</label>
+                <input type="date" id="date-input" min="2026-06-01" max="2026-07-01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="price-input">Предлагаемая цена билета (₽)</label>
+                <input type="number" id="price-input" min="0" placeholder="Введите цену..." required>
+            </div>
+
+            <button type="button" id="btn">Рассчитать спрос</button> 
+        </form>
+
+        <div id="result-block" style="display: none;">
+            <h3>Прогноз спроса на рейс</h3>
+            <div class="res-row">
+                <span class="res-label">Всего мест в самолете:</span>
+                <span class="res-value" id="res-seats">0</span>
+            </div>
+            <div class="res-row">
+                <span class="res-label">Прогноз продаж билетов:</span>
+                <span class="res-value highlight" id="res-will-buy">0 шт.</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>

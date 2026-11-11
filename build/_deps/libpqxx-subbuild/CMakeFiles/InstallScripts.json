@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/sch_proj/build/_deps/libpqxx-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

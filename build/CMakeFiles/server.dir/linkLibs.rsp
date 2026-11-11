@@ -1,0 +1,1 @@
+ "_deps/libpqxx-build/src/libpqxx.a" C:/msys64/ucrt64/lib/libpq.dll.a -lws2_32 C:/msys64/ucrt64/lib/libpq.dll.a -lwsock32 -lws2_32 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

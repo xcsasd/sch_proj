@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/sch_proj/build/cmake_install.cmake",
+		"C:/sch_proj/build/_deps/libpqxx-build/cmake_install.cmake",
+		"C:/sch_proj/build/_deps/libpqxx-build/src/cmake_install.cmake",
+		"C:/sch_proj/build/_deps/libpqxx-build/include/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

@@ -1,0 +1,1 @@
+-IC:/boost_1_92_0/boost_1_92_0 -I"C:/sch_proj/build/_deps/libpqxx-build/include" -I"C:/sch_proj/build/_deps/libpqxx-src/include" -isystem C:/msys64/ucrt64/include/postgresql/server

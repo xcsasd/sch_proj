@@ -1,0 +1,17 @@
+// NOLINT(llvm-header-guard)
+#cmakedefine PQXX_HAVE_ASSUME
+#cmakedefine PQXX_HAVE_CHARCONV_FLOAT
+#cmakedefine PQXX_HAVE_CXA_DEMANGLE
+#cmakedefine PQXX_HAVE_GCC_PURE
+#cmakedefine PQXX_HAVE_GCC_VISIBILITY
+#cmakedefine PQXX_HAVE_MULTIDIM
+#cmakedefine PQXX_HAVE_POLL
+#cmakedefine PQXX_HAVE_RANGES
+#cmakedefine PQXX_HAVE_SLEEP_FOR
+#cmakedefine PQXX_HAVE_STACKTRACE
+#cmakedefine PQXX_HAVE_STRERROR_R
+#cmakedefine PQXX_HAVE_STRERROR_S
+#cmakedefine PQXX_HAVE_TYPE_DISPLAY
+#cmakedefine PQXX_HAVE_UU_RESTRICT
+#cmakedefine PQXX_HAVE_YEAR_MONTH_DAY
+#cmakedefine PQXX_HAVE_ZARGS
