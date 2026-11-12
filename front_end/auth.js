@@ -4,7 +4,54 @@ const button_login = document.getElementById("btn-login");
 const button_register = document.getElementById("btn-register");
 const authMessage = document.getElementById("auth-message");
 
-async function sendAuthRequest(event, url, successMessage) {
+function getToken() {
+    return localStorage.getItem('jwt_token');
+}
+
+function clearToken() {
+    localStorage.removeItem('jwt_token');
+}
+
+async function authFetch(url, options = {}) {
+    const token = getToken();
+    const headers = { ...(options.headers || {}) };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+    return fetch(url, { ...options, headers });
+}
+
+async function checkAuth() {
+    const token = getToken();
+    if (!token) {
+        window.location.href = '/login.html';
+        return false;
+    }
+    try {
+        const res = await authFetch('/api/tokens');
+        if (!res.ok) {
+            clearToken();
+            window.location.href = '/login.html';
+            return false;
+        }
+        const data = await res.json();
+        console.log('Авторизован как', data.username);
+        return true;
+    } catch (e) {
+        console.error(e);
+        clearToken();
+        window.location.href = '/login.html';
+        return false;
+    }
+}
+
+async function logout() {
+    try {
+        await authFetch('/api/logout', { method: 'POST' });
+    } catch (e) {}
+    clearToken();
+    window.location.href = '/login.html';
+}
+
+async function sendAuthRequest(event, url, success_message) {
     event.preventDefault();
 
     const username = username_symbol.value;
@@ -46,14 +93,14 @@ async function sendAuthRequest(event, url, successMessage) {
 
         if (url.includes("login")) {
             localStorage.setItem('jwt_token', result.token);
-            window.location.href = "/index.html"; 
+            window.location.href = "/index.html";
             return;
         }
 
-        authMessage.innerText = successMessage;
+        authMessage.innerText = success_message;
         authMessage.style.color = "var(--success-color, #2ec4b6)";
         authMessage.style.display = "block";
-        
+
         username_symbol.value = "";
         password_input.value = "";
 
@@ -68,5 +115,15 @@ async function sendAuthRequest(event, url, successMessage) {
     }
 }
 
-button_login.addEventListener('click', (e) => sendAuthRequest(e, '/api/login', 'Успешно авторизированы'));
-button_register.addEventListener('click', (e) => sendAuthRequest(e, '/api/register', 'Пользователь успешно зарегистрирован! Теперь войдите.'));
+if (button_login) {
+    button_login.addEventListener('click', (e) => sendAuthRequest(e, '/api/login', 'Успешно авторизированы'));
+}
+
+if (button_register) {
+    button_register.addEventListener('click', (e) => sendAuthRequest(e, '/api/register', 'Пользователь успешно зарегистрирован! Теперь войдите'));
+}
+
+const button_logout = document.getElementById("btn-logout");
+if (button_logout) {
+    button_logout.addEventListener('click', logout);
+}

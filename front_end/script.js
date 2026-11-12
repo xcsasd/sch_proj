@@ -75,7 +75,19 @@ button.addEventListener('click', async (event) => {
     }
 });
 
-btn_logout.addEventListener('click', () => {
-    localStorage.removeItem('jwt_token');
-    window.location.href = '/login.html';
+btn_logout.addEventListener('click', async () => {
+    const token = localStorage.getItem('jwt_token');
+    try {
+        if (token) {
+            await fetch('/api/logout', {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+        }
+    } catch (e) {
+        console.error('logout error', e);
+    } finally {
+        localStorage.removeItem('jwt_token');
+        window.location.href = '/login.html';
+    }
 });

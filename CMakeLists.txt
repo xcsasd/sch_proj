@@ -28,7 +28,6 @@ add_executable(server
 
 target_include_directories(server PRIVATE "C:/boost_1_92_0/boost_1_92_0")
 target_link_libraries(server PRIVATE pqxx Threads::Threads PostgreSQL::PostgreSQL)
-
 if(WIN32)
     target_link_libraries(server PRIVATE ws2_32)
 endif()
