@@ -15,6 +15,7 @@
 #include <thread>
 #include <algorithm>
 #include <mutex>
+#include <cstdlib>
 
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
@@ -282,7 +283,9 @@ private:
 
 int main() {
     try {
-        pqxx::connection conn("postgresql://postgres:postgres@localhost:5432/avia_db");
+        const char* conn_str = std::getenv("DB_CONNECTION_STRING");
+        std::string full_conn = conn_str ? conn_str : "postgresql://postgres:postgres@localhost:5432/avia_db";
+        pqxx::connection conn(full_conn);
 
         auto flight_forecast_table = LoadForecastFromDB(conn);
         auto routes_table = LoadRoutesFromDB(conn);
