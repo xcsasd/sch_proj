@@ -16,7 +16,7 @@ RUN cmake -B build -DCMAKE_BUILD_TYPE=Release && \
 
 FROM ubuntu:24.04
 
-RUN apt-get udate && apt-get install -y \
+RUN apt-get update && apt-get install -y \
     libboost-system1.83.0 \
     libpq5 \
     libpqxx-7.8 \
