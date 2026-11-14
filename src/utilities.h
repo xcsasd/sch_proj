@@ -147,7 +147,7 @@ std::unordered_map<std::string, FlightForecast> LoadForecastFromDB(pqxx::connect
 
 enum class RegisterResult { Success, UserExists, Error };
 
-inline std::string SimpleHash(const std::string& input) {
+inline std::string Hash(const std::string& input) { 
     uint64_t hash = 14695981039346656037ULL;
     for (unsigned char c : input) {
         hash ^= c;
@@ -168,7 +168,7 @@ inline std::string GenerateSalt() {
 
 inline RegisterResult RegisterUserInDB(pqxx::connection& conn, const std::string& username, const std::string& password) {
     std::string salt = GenerateSalt();
-    std::string hash = SimpleHash(salt + password);
+    std::string hash = Hash(salt + password);
     try {
         pqxx::work w(conn);
         
@@ -197,7 +197,7 @@ inline bool VerifyUserInDB(pqxx::connection& conn, const std::string& username, 
         std::string stored_hash = r[0]["password_hash"].as<std::string>();
         std::string salt = r[0]["salt"].as<std::string>();
         
-        return SimpleHash(salt + password) == stored_hash;
+        return Hash(salt + password) == stored_hash;
     } catch (const std::exception& e) {
         std::cerr << "VerifyUserInDB error: " << e.what() << std::endl;
         return false;
