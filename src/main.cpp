@@ -210,7 +210,7 @@ public:
             }
 
             if (target == "/login.html" || target == "/index.html" || target == "/style.css" || target == "/script.js" || target == "/auth.js") {
-                std::string path = "../front_end" + target;
+                std::string path = "front_end" + target;
 
                 std::string_view content_type = ContentType::TEXT_HTML;
                 if (auto content = ReadFile(path)) {
@@ -291,7 +291,7 @@ int main() {
         auto routes_table = LoadRoutesFromDB(conn);
 
         boost::asio::io_context ioc;
-        Server server(flight_forecast_table, routes_table, ioc, boost::asio::ip::make_address("127.0.0.1"), 5000, conn);
+        Server server(flight_forecast_table, routes_table, ioc, boost::asio::ip::make_address("0.0.0.0"), 5000, conn);
         server.Run();
     } catch (const std::exception& e) {
         std::cerr << "Fatal error: " << e.what() << std::endl;

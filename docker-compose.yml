@@ -10,14 +10,22 @@ services:
             POSTGRES_PASSWORD: postgres
         volumes:
             - postgres_data:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d avia_db"]
+            interval: 5s
+            timeout: 5s
+            retries: 10
 
-app:
-    build: .
-    restart: always
-    ports:
-        - "0.0.0.0:5000:5000"
-    depends_on:
-        - db
+    app:
+        build: .
+        restart: always
+        ports:
+            - "5000:5000"
+        environment:
+            DB_CONNECTION_STRING: postgresql://postgres:postgres@db:5432/avia_db
+        depends_on:
+            db:
+                condition: service_healthy
 
 volumes:
     postgres_data:

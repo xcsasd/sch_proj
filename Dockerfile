@@ -6,13 +6,13 @@ RUN apt-get update && apt-get install -y \
     libboost-all-dev \
     libpq-dev \
     libpqxx-dev \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 COPY . .
 
-RUN cmake -B build -DCMAKE_BUILD_TYPE=Release && \
-    cmake --build build -j$(nproc)
+RUN cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j1
 
 FROM ubuntu:24.04
 
@@ -26,3 +26,6 @@ WORKDIR /app
 
 COPY --from=builder /app/build/server /app/server
 COPY --from=builder /app/front_end /app/front_end
+
+EXPOSE 5000
+CMD ["./server"]

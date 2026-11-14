@@ -9,10 +9,12 @@ let res_will_buy = document.getElementById("res-will-buy");
 let btn_logout = document.getElementById('btn-logout');
 let btn_coffee = document.getElementById('btn-coffee');
 
+let form = document.getElementById("forecast-form");
+
 btn_coffee.addEventListener('click', async () => {
     let response = await fetch('/make_coffee' , {
         method: 'GET',
-        headers: { 
+        headers: {
             'Content-Type': 'text/plain',
         },
     });
@@ -32,7 +34,7 @@ button.addEventListener('click', async (event) => {
         alert("Заполните все поля формы");
         return;
     }
-    
+
     const data = { route: route, date: date, price: price };
 
     button.disabled = true;
@@ -44,7 +46,7 @@ button.addEventListener('click', async (event) => {
     try {
         let response = await fetch('/api/count', {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 'Authorization': 'Bearer ' + token
             },
@@ -68,7 +70,7 @@ button.addEventListener('click', async (event) => {
 
     } catch (error) {
         console.error(error);
-        alert(error.message); 
+        alert(error.message);
     } finally {
         button.disabled = false;
         button.innerText = "Рассчитать спрос";
@@ -91,3 +93,11 @@ btn_logout.addEventListener('click', async () => {
         window.location.href = '/login.html';
     }
 });
+
+if(form) {
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const btn = document.getElementById("btn");
+        if(btn) btn.click();
+    });
+}
